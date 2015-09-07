@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<title>Gridlock</title>
+<head>
+  <meta http-equiv="refresh" content="20" >
+</head>
+  <body bgcolor="black">
+    <font size="4" color="silver">
+    <h1 class="logo" align="center">Gridlock - Results for {{service}} in {{location}}</h1>
+    <table border=0 width=50% align="center" style="border-collapse:collapse;">
+      <tr align="middle">
+        <td width="50%"><b>Timestamp</b></td>
+        <td width="50%"><b>{{service}}</b></td>
+      </tr>
+      {% for status in data %}
+      <tr align="middle">
+        <td>{{status.timestamp}}</td>
+        {% if status.status == 'up' %}
+          {% set colour = 'green' %}
+        {% elif status.status == 'down' %}
+          {% set colour = 'red' %}
+        {% elif status.status == 'warn' %}
+          {% set colour = 'yellow' %}
+        {% elif status.status == 'timeout' %}
+          {% set colour = 'black' %}
+        {% endif %}
+        <td BGCOLOR="{{colour}}" title="{{status.description}}">&nbsp</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </font>
+  </body>
+</html>

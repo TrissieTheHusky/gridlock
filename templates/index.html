@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<title>Gridlock</title>
+<head>
+  <meta http-equiv="refresh" content="30">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+  <body bgcolor="black">
+    <font size="4" color="silver">
+    <h1 class="logo" align="middle">Gridlock - Service Status</h1>
+    <table border=0 width=100% align="center" style="border-collapse:collapse;">
+      <tr align="middle">
+        <th width="15%">Service</th>
+        <th colspan="{{ locs|length }}">Locations</th>
+      </tr>
+      <tr align="middle">
+        <th></th>
+        {% for loc in locs %}
+        <th width="{{ 1200 / locs|length }}px">{{loc}}</th>
+        {% endfor %}
+      </tr>
+      {% for service in data %}
+      <tr align="middle">
+        <th>{{ service }}</th>
+        {% for loc in locs %}
+          {% if data[service][loc] %}
+            {% for status in data[service][loc] %}
+              {% if status.status == 'up' %}
+                {% set colour = 'green' %}
+              {% elif status.status == 'down' %}
+                {% set colour = 'red' %}
+              {% elif status.status == 'warn' %}
+                {% set colour = 'yellow' %}
+              {% elif status.status == 'timeout' %}
+                {% set colour = 'grey' %}
+              {% endif %}
+              <td BGCOLOR="{{colour}}" title="{{status.description}}"><a href="/detail?service={{service}}&location={{loc}}" style="display:block;text-decoration:none">&nbsp</a></td>
+            {% endfor %}
+          {% else %}
+            <td></td>
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+      </tr>
+    </table>
+  </font>
+  </body>
+</html>

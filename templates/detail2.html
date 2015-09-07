@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<title>Gridlock</title>
+<head>
+  <meta http-equiv="refresh" content="20" >
+</head>
+ <body>
+   <h1 class="logo" align="center">Results for {{service}} at {{location}}</h1>
+
+   <table border=0 width=500px align="center">
+     <tr align="middle">
+       <td width="50%"><b>Timestamp</b></td>
+       <td width="50%"><b>{{service}}</b></td>
+     </tr>
+     {% for item in data %}
+     <tr align="middle">
+       <td>{{item.timestamp}}</td>
+       <td><img src="/static/{{item.status}}.gif" title="{{item.description}}"  width="20" height="20" alt="{{item.description}}"></td>
+     </tr>
+     {% endfor %}
+   </table>
+ </body>
+</html>

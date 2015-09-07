@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<title>Gridlock</title>
+<head>
+  <meta http-equiv="refresh" content="60" >
+</head>
+ <body>
+   <h1 class="logo" align="middle">Gridlock - Service Statuses</h1>
+
+   <table border=0 width=75% align="center">
+     <tr align="middle">
+       <th><h3>Service</h3></th>
+       {% for loc in locs %}
+       <th><h3>{{loc}}</h3></th>
+       {% endfor %}
+     </tr>
+     {% for service in data %}
+     <tr align="middle">
+       <th>{{ service }}</th>
+       {% for loc in locs %}
+         {% if data[service][loc] %}
+           {% for status in data[service][loc] %}
+           <td><a href="/detail?service={{service}}&location={{loc}}"><img src="/static/{{status.status}}.gif" title="{{status.description}}" width="20" height="20" alt="{{status.de
+scription}}"></a></td>
+           {% endfor %}
+         {% else %}
+           <td>&nbsp</td>
+         {% endif %}
+       {% endfor %}
+     {% endfor %}
+     </tr>
+   </table>
+ </body>
+</html>
