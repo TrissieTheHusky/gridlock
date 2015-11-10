@@ -21,7 +21,7 @@ class Service(db.Model):
     return '<Service %r>' % self.name
 
 class Location(db.Model):
-  id = db.Column(db.Integer, primary_key=True)
+  id   = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(20), unique=True,  nullable=False)
 
   def __init__(self, name):
@@ -31,12 +31,12 @@ class Location(db.Model):
     return '<Location %r>' % self.name
 
 class Status(db.Model):
-  id         = db.Column(db.Integer, primary_key=True)
-  service_id = db.Column(db.Integer, db.ForeignKey('service.id'))
-  status     = db.Column(db.String(120), nullable=False)
-  location_id   = db.Column(db.Integer, db.ForeignKey('location.id'))
-  env        = db.Column(db.String(120), nullable=False)
-  timestamp  = db.Column(db.String(120), nullable=False)
+  id          = db.Column(db.Integer, primary_key=True)
+  service_id  = db.Column(db.Integer, db.ForeignKey('service.id'))
+  status      = db.Column(db.Numeric, nullable=False)
+  location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
+  env         = db.Column(db.String(120), nullable=False)
+  timestamp   = db.Column(db.String(120), nullable=False)
   description = db.Column(db.Text, nullable=True)
 
   def __init__(self, service_id, status, location_id, env, timestamp, description):
@@ -93,7 +93,7 @@ def homepage():
       statuses = Status.query.filter_by(service_id=service.id,location_id=location.id).order_by(Status.timestamp.desc()).limit(1)
       for status in statuses:
         if ((time.time() - int(status.timestamp)) >= 600):
-          state = "timeout"
+          state = 4
         else:
           state = status.status
 

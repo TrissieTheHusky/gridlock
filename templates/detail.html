@@ -15,14 +15,16 @@
       {% for status in data %}
       <tr align="middle">
         <td>{{status.timestamp}}</td>
-        {% if status.status == 'up' %}
+        {% if status.status == 1 %}
           {% set colour = 'green' %}
-        {% elif status.status == 'down' %}
-          {% set colour = 'red' %}
-        {% elif status.status == 'warn' %}
+        {% elif status.status == 2 %}
           {% set colour = 'yellow' %}
-        {% elif status.status == 'timeout' %}
+        {% elif status.status == 3' %}
+          {% set colour = 'red' %}
+        {% elif status.status == '4' %}
           {% set colour = 'black' %}
+        {% elif status.status == '5' %}
+          {% set colour = 'grey' %}
         {% endif %}
         <td BGCOLOR="{{colour}}" title="{{status.description}}">&nbsp</td>
       </tr>

@@ -25,13 +25,15 @@
         {% for loc in locs %}
           {% if data[service][loc] %}
             {% for status in data[service][loc] %}
-              {% if status.status == 'up' %}
+              {% if status.status == 0 %}
                 {% set colour = 'green' %}
-              {% elif status.status == 'down' %}
+              {% elif status.status == 1 %}
+                {% set colour = 'yello' %}
+              {% elif status.status == '2' %}
                 {% set colour = 'red' %}
-              {% elif status.status == 'warn' %}
-                {% set colour = 'yellow' %}
-              {% elif status.status == 'timeout' %}
+              {% elif status.status == '3' %}
+                {% set colour = 'black' %}
+              {% elif status.status == '3' %}
                 {% set colour = 'grey' %}
               {% endif %}
               <td BGCOLOR="{{colour}}" title="{{status.description}}"><a href="/detail?service={{service}}&location={{loc}}" style="display:block;text-decoration:none">&nbsp</a></td>

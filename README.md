@@ -18,11 +18,11 @@ Forks and pull requests are most welcome!
 
 Color legend is simple:
 ```
-Green   -   up
-Yellow  -   warn
-Red     -   down
-Grey    -   timeout (a service has not reported in for 10 minutes)
-Black   -   no data
+Green   -   up (status 0)
+Yellow  -   warn (status 1)
+Red     -   down (status 2)
+Black   -   no data or unknown (status 3)
+Grey    -   timeout (a service has not reported in for 10 minutes) (status 4)
 ```
 
 ### Inputs 
@@ -41,7 +41,7 @@ A description of the status, eg execution timing. Will be displayed as a tooltip
 #### Service
 The service name
 #### Status
-Must be one of `up|down|warn`
+Must be one of `0|1|2|3`
 #### Location
 Where the service lives
 #### Env
