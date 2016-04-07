@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <title>Gridlock</title>
+  <head>
+    <meta http-equiv="refresh" content="30">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='div.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  </head>
+  <body bgcolor="black">
+    <font size="4" color="silver">
+    <div class="grid">
+    {% for service in data %}
+      {% for loc in locs %}
+        {% if data[service][loc] %}
+          {% for status in data[service][loc] %}
+            {% if status.status == 0 %}
+              {% set colour = 'green' %}
+            {% elif status.status == 1 %}
+              {% set colour = 'yello' %}
+            {% elif status.status == '2' %}
+              {% set colour = 'red' %}
+            {% elif status.status == '3' %}
+              {% set colour = 'black' %}
+            {% elif status.status == '3' %}
+              {% set colour = 'grey' %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    </div>
+  </body>
+</html>
