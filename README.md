@@ -48,3 +48,10 @@ Where the service lives
 Currently unused, I default to "prod"
 #### Timestamp
 Epoch time as an int
+
+## Testing
+- install flask and SQLAlchemy
+- run python app.py to start the app
+- browse to localhost:5000 to see the status page
+- run scripts/put_to_gridlock.sh to populate test data
+- to inspect DB use sqlite3 db/gridlock.db

@@ -36,7 +36,7 @@ class Location(db.Model):
 class Status(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     service_id = db.Column(db.Integer, db.ForeignKey('service.id'))
-    status = db.Column(db.String(120), nullable=False)
+    status = db.Column(db.Integer, nullable=False)
     location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
     env = db.Column(db.String(120), nullable=False)
     timestamp = db.Column(db.String(120), nullable=False)
