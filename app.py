@@ -36,7 +36,7 @@ class Location(db.Model):
 class Status(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     service_id = db.Column(db.Integer, db.ForeignKey('service.id'))
-    status = db.Column(db.Numeric, nullable=False)
+    status = db.Column(db.String(120), nullable=False)
     location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
     env = db.Column(db.String(120), nullable=False)
     timestamp = db.Column(db.String(120), nullable=False)
@@ -101,11 +101,10 @@ def homepage():
         service_list[service.name] = {}
         for location in locations:
             service_list[service.name][location.name] = []
-            statuses = Status.query.filter_by((service_id=service.id,
-                                              location_id=location.id).
-                                              order_by(Status.timestamp.
-                                              desc()).
-                                              limit(1))
+            statuses = Status.query.filter_by(service_id = service.id,
+                                              location_id = location.id).order_by(Status.timestamp.desc()).limit(1)
+
+
         for status in statuses:
             if (time.time() - int(status.timestamp)) >= 600:
                 state = 4
@@ -134,10 +133,10 @@ def detail():
     else:
         offset = 20
 
-    history = Status.query.filter_by((service_id=sid.id,
-                                     location_id=lid.id).
-                                     order_by(Status.timestamp.desc()).
-                                     limit(offset).all())
+    history = Status.query.filter_by(service_id=sid.id,
+                                     location_id=lid.id).order_by(Status.timestamp.desc()).limit(offset).all()
+
+
 
     h_array = []
 
