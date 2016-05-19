@@ -106,18 +106,21 @@ def homepage():
 
 
         for status in statuses:
-            if (time.time() - int(status.timestamp)) >= 600:
+            """
+            if (time.time() - int(status.timestamp)) >= 600000:
                 state = 4
             else:
                 state = status.status
+            """
+            state = status.status
 
             stats = {"status": state,
                      "timestamp": status.timestamp,
                      "description": status.description}
 
-            service_list[service.name][location.name].append(stats)
+            service_list[service.name][location.name] = state if state else 0
 
-    return render_template('index.html', data=service_list, locs=locs)
+    return render_template('index.html', data=service_list, locs=locs, rows=len(service_list), cols=len(locs))
 
 
 @app.route('/detail', methods=['GET'])
