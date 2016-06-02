@@ -3,48 +3,65 @@
 <title>Gridlock</title>
 <head>
   <meta http-equiv="refresh" content="30">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <style>
+    div.row {
+        padding: 0px;
+        margin: 0px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    div.col {
+        padding: 0px;
+        margin: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+        display:inline-block;
+    }
+
+    div.color {
+        background-color: green;
+    }
+    div.color0 {
+        background-color: green;
+    }
+    div.color1 {
+        background-color: yellow;
+    }
+    div.color2 {
+        background-color: red;
+    }
+    div.color3 {
+        background-color: grey;
+    }
+  </style>
 </head>
-  <body bgcolor="black">
-    <font size="4" color="silver">
-    <h1 class="logo" align="middle">Gridlock - Service Status</h1>
-    <table border=0 width=100% align="center" style="border-collapse:collapse;">
-      <tr align="middle">
-        <th width="15%">Service</th>
-        <th colspan="{{ locs|length }}">Locations</th>
-      </tr>
-      <tr align="middle">
-        <th></th>
-        {% for loc in locs %}
-        <th width="{{ 1200 / locs|length }}px">{{loc}}</th>
-        {% endfor %}
-      </tr>
-      {% for service in data %}
-      <tr align="middle">
-        <th>{{ service }}</th>
-        {% for loc in locs %}
-          {% if data[service][loc] %}
-            {% for status in data[service][loc] %}
-              {% if status.status == 0 %}
-                {% set colour = 'green' %}
-              {% elif status.status == 1 %}
-                {% set colour = 'yello' %}
-              {% elif status.status == '2' %}
-                {% set colour = 'red' %}
-              {% elif status.status == '3' %}
-                {% set colour = 'black' %}
-              {% elif status.status == '3' %}
-                {% set colour = 'grey' %}
-              {% endif %}
-              <td BGCOLOR="{{colour}}" title="{{status.description}}"><a href="/detail?service={{service}}&location={{loc}}" style="display:block;text-decoration:none">&nbsp</a></td>
-            {% endfor %}
-          {% else %}
-            <td></td>
-          {% endif %}
-        {% endfor %}
-      {% endfor %}
-      </tr>
-    </table>
-  </font>
-  </body>
+<body style='margin:0px; padding:0px'>
+{% for service in data %}
+    <div class="row">
+    {% for loc in locs %}<div class="col color{{data[service][loc][0]}}" title="{{loc}}-{{service}}" >&nbsp;</div>{% endfor %}
+    </div>
+{% endfor %}
+<script>
+$(function() {
+
+    function doResize() {
+        var w = ($(window).width()-1)/{{cols}};
+        var h = ($(window).height()-1)/{{rows}};
+
+        $("div.col").height(h);
+        $("div.col").width(w);
+    }
+
+    $(window).resize(function() {
+        doResize();
+    });
+
+    doResize();
+
+})
+</script>
+</body>
 </html>
